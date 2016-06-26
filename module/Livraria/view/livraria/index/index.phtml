@@ -1,3 +1,9 @@
-<p>Test</p>
-<p><?php echo $this->name; ?></p>
+<h1>Categorias</h1>
+<ul>
+    <?php foreach($this->categorias as $categoria): ?>
+
+        <li><?php echo $categoria; ?></li>
+
+    <?php endforeach; ?>
+</ul>
 

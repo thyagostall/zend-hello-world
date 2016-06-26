@@ -9,7 +9,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $name = "Thyago Stall";
-        return array("name" => $name);
+        $categorias = array("primeira", "segunda", "terceira");
+        return array("categorias" => $categorias);
     }
 }
