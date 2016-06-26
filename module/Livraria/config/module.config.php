@@ -1,21 +1,14 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
-namespace Application;
+namespace Livraria;
 
 return array(
     'router' => array(
         'routes' => array(
-            'livaria-home' => array(
+            'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/livraria',
+                    'route'    => '/',
                     'defaults' => array(
                         'controller' => 'Livraria\Controller\Index',
                         'action'     => 'index',
@@ -37,7 +30,7 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'livraria/index/index' => __DIR__ . '/../view/livraria/index/index.phtml',
+            'livraria/index/index'    => __DIR__ . '/../view/livraria/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
@@ -49,6 +42,18 @@ return array(
         'router' => array(
             'routes' => array(
             ),
+        ),
+    ),
+    'doctrine' => array(
+        'driver' => array(
+            'livraria' => array(
+                'paths' => array(__DIR__ . '/../src/Livraria/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Livraria\Entity' => 'livraria',
+                )
+            )
         ),
     ),
 );
