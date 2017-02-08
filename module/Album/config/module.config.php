@@ -9,14 +9,8 @@
 namespace Album;
 
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'controllers' => [
-        'factories' => [
-            Controller\AlbumController::class => InvokableFactory::class,
-        ]
-    ],
     'router' => [
         'routes' => [
             'album' => [
@@ -26,11 +20,11 @@ return [
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
-                    ]
-                ],
-                'defaults' => [
-                    'controller' => Controller\AlbumController::class,
-                    'action'     => 'index',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\AlbumController::class,
+                        'action'     => 'index',
+                    ],
                 ],
             ]
         ]
