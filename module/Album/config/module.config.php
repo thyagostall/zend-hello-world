@@ -8,11 +8,22 @@
 
 namespace Album;
 
+use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
+            'home' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/',
+                    'defaults' => [
+                        'controller' => Controller\AlbumController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'album' => [
                 'type' => Segment::class,
                 'options' => [
