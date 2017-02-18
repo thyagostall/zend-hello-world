@@ -16,7 +16,7 @@ return [
             'album' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/album[/:action[/:id]]',
+                    'route' => '/album[/:action[/:id]][/]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
