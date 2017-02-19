@@ -9,18 +9,30 @@
 namespace Album\Controller;
 
 
+use Album\Entity\Album;
 use Album\Form\AlbumForm;
+use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class AlbumController extends AbstractActionController
 {
+    protected $entityManager;
 
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function indexAction()
     {
+        $albums = [];
+        foreach ($this->entityManager->getRepository('Album\\Entity\\Album')->findAll() as $item) {
+            array_push($albums, $item);
+        }
+
         return new ViewModel([
-            'albums' => $this->table->fetchAll(),
+            'albums' => $albums,
         ]);
     }
 
@@ -36,7 +48,7 @@ class AlbumController extends AbstractActionController
         }
 
         $album = new Album();
-        $form->setInputFilter($album->getInputFilter());
+        $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
@@ -44,7 +56,8 @@ class AlbumController extends AbstractActionController
         }
 
         $album->exchangeArray($form->getData());
-        $this->table->saveAlbum($album);
+        $this->entityManager->persist($album);
+        $this->entityManager->flush();
         return $this->redirect()->toRoute('album');
     }
 
@@ -57,7 +70,7 @@ class AlbumController extends AbstractActionController
         }
 
         try {
-            $album = $this->table->getAlbum($id);
+            $album = $this->entityManager->find('Album\\Entity\\Album', $id);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('album', ['action' => 'index']);
         }
@@ -73,15 +86,14 @@ class AlbumController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($album->getInputFilter());
+        $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
         if (!$form->isValid()) {
             return $viewData;
         }
 
-        $this->table->saveAlbum($album);
-
+        $this->entityManager->flush();
         return $this->redirect()->toRoute('album', ['action' => 'index']);
     }
 
@@ -98,7 +110,9 @@ class AlbumController extends AbstractActionController
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->table->deleteAlbum($id);
+                $album = $this->entityManager->find('Album\\Entity\\Album', $id);
+                $this->entityManager->remove($album);
+                $this->entityManager->flush();
             }
 
             return $this->redirect()->toRoute('album');
@@ -106,7 +120,7 @@ class AlbumController extends AbstractActionController
 
         return [
             'id' => $id,
-            'album' => $this->table->getAlbum($id),
+            'album' => $this->entityManager->find('Album\\Entity\\Album', $id),
         ];
     }
 }
