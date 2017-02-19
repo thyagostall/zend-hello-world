@@ -11,6 +11,7 @@ namespace Album;
 
 use Album\Controller\AlbumController;
 use Album\Controller\AlbumRestController;
+use Doctrine\ORM\EntityManager;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -32,18 +33,9 @@ class Module implements ConfigProviderInterface
     public function getServiceConfig()
     {
         return [
-            'factories' => [
-                Model\AlbumTable::class => function($container) {
-                    $tableGateway = $container->get(Model\AlbumTableGateway::class);
-                    return new Model\AlbumTable($tableGateway);
-                },
-                Model\AlbumTableGateway::class => function($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
-                }
-            ]
+//            'services' => [
+//                EntityManager::class =>
+//            ]
         ];
     }
 
@@ -51,11 +43,11 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\AlbumController::class => function($container) {
-                    return new AlbumController($container->get(Model\AlbumTable::class));
+                Controller\AlbumController::class => function() {
+                    return new AlbumController();
                 },
                 Controller\AlbumRestController::class => function($container) {
-                    return new AlbumRestController($container->get(Model\AlbumTable::class));
+                    return new AlbumRestController($container->get('doctrine.entitymanager.orm_default'));
                 }
             ]
         ];

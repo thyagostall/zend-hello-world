@@ -12,10 +12,11 @@
  */
 return [
     'Zend\I18n',
-    'Zend\Db',
     'Zend\Router',
     'Zend\Validator',
     'Zend\Form',
     'Application',
+    'DoctrineModule',
+    'DoctrineORMModule',
     'Album'
 ];

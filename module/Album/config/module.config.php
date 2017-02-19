@@ -12,6 +12,20 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
 return [
+    'doctrine' => [
+        'driver' => [
+            'application_entities' => [
+                'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'Album\Entity' => 'application_entities'
+                ],
+            ]
+        ]
+    ],
     'router' => [
         'routes' => [
             'home' => [
