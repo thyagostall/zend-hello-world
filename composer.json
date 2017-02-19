@@ -20,7 +20,8 @@
         "zendframework/zend-form": "^2.9",
         "zendframework/zend-i18n": "^2.7",
         "zendframework/zend-json": "^3.0",
-        "doctrine/doctrine-orm-module": "^1.1"
+        "doctrine/doctrine-orm-module": "^1.1",
+        "ext-intl": "^1.1"
     },
     "autoload": {
         "psr-4": {
