@@ -37,10 +37,25 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+            ],
+            'album_api' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/api/v1/album[/:id][/]',
+                    'constraints' => [
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\AlbumRestController::class,
+                    ]
+                ]
             ]
         ]
     ],
     'view_manager' => [
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
         'template_path_stack' => [
             'album' => __DIR__ . '/../view',
         ]

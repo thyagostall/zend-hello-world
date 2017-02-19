@@ -33,7 +33,7 @@ class AlbumTable
         $row = $rowset->current();
         if (!$row) {
             throw new RuntimeException(sprintf(
-                'Could not find row with identifier $d',
+                'Could not find row with identifier %d',
                 $id
             ));
         }
