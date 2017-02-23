@@ -18,5 +18,6 @@ return [
     'Application',
     'DoctrineModule',
     'DoctrineORMModule',
-    'Album'
+    'Album',
+    'Blog',
 ];
