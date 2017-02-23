@@ -11,7 +11,9 @@ namespace Album;
 
 use Album\Controller\AlbumController;
 use Album\Controller\AlbumRestController;
+use Doctrine\ORM\EntityManager;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ServiceManager\ServiceManager;
 
 class Module implements ConfigProviderInterface
 {
@@ -35,11 +37,11 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\AlbumController::class => function($container) {
-                    return new AlbumController($container->get('doctrine.entitymanager.orm_default'));
+                Controller\AlbumController::class => function(ServiceManager $serviceManager) {
+                    return new AlbumController($serviceManager->get(EntityManager::class));
                 },
-                Controller\AlbumRestController::class => function($container) {
-                    return new AlbumRestController($container->get('doctrine.entitymanager.orm_default'));
+                Controller\AlbumRestController::class => function(ServiceManager $serviceManager) {
+                    return new AlbumRestController($serviceManager->get(EntityManager::class));
                 }
             ]
         ];
