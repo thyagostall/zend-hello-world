@@ -20,4 +20,5 @@ return [
     'DoctrineORMModule',
     'Album',
     'Blog',
+    'ZfcTwig',
 ];
