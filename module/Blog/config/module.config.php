@@ -5,9 +5,9 @@
  * Date: 23/02/2017
  * Time: 20:45
  */
-use Zend\Router\Http\Literal;
 use Blog\Controller;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Router\Http\Literal;
+use Blog\Factory;
 
 return [
     'router' => [
@@ -26,7 +26,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\ListController::class => InvokableFactory::class,
+            Controller\ListController::class => Factory\ListControllerFactory::class,
         ],
     ],
     'view_manager' => [
