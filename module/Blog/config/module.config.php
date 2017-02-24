@@ -6,6 +6,8 @@
  * Time: 20:45
  */
 use Zend\Router\Http\Literal;
+use Blog\Controller;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -21,5 +23,10 @@ return [
                 ],
             ],
         ],
-    ]
+    ],
+    'controllers' => [
+        'factories' => [
+            Controller\ListController::class => InvokableFactory::class,
+        ],
+    ],
 ];
